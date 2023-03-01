@@ -1,0 +1,223 @@
+<div class="row">
+  <div class="input-group mb-3 mt-5 ml-g">
+    <input type="text" class="form-control" [(ngModel)]="term" />
+    <div class="input-group-append">
+      <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+    </div>
+  </div>
+</div>
+<div
+  class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 g-3 px-lg-3 px-md-2 py-3"
+>
+  <table class="table table-hover text-center align-baseline">
+    <thead class="table" style="font-size: 17px">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Seller</th>
+        <th scope="col">Buyer</th>
+        <th scope="col">Date</th>
+        <th scope="col">Profit</th>
+        <th scope="col">S.Status</th>
+        <th scope="col">B.Status</th>
+        <th scope="col">Details</th>
+      </tr>
+    </thead>
+    <tbody
+      *ngFor="
+        let order of response['exchangingOrders']
+          | filter: term
+          | paginate
+            : {
+                id: 'ordersTable',
+                itemsPerPage: itemsPerPage,
+                currentPage: currentPage,
+                totalItems: totalItems
+              };
+        let i = index
+      "
+    >
+      <tr>
+        <th scope="row">{{ itemsPerPage * (currentPage - 1) + i + 1 }}</th>
+        <td>
+          {{
+            response["ordersDetails"][itemsPerPage * (currentPage - 1) + i][
+              "orderSellerDetails"
+            ]["userName"] | titlecase
+          }}
+          - {{ order["addressfrom"]["city"] }}
+        </td>
+        <td>
+          {{
+            response["ordersDetails"][itemsPerPage * (currentPage - 1) + i][
+              "orderBuyerDetails"
+            ]["userName"] | titlecase
+          }}
+          - {{ order["addressto"]["city"] }}
+        </td>
+        <td>{{ order["time"] | date: "mediumDate" }}</td>
+        <td>
+          {{ order["profit"] + order["exchangeProperties"]["profit"] }} EGP
+        </td>
+        <td>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-primary dropdown-toggle"
+              type="button"
+              id=""
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ order["status"] | titlecase }}
+            </button>
+            <ul class="dropdown-menu" *ngIf="order['status'] == 'waiting'">
+              <li>
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="updateStatus(order['_id'], 'on the way', 'buyer', i)"
+                >
+                  On the way
+                </button>
+              </li>
+              <li>
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="updateStatus(order['_id'], 'delivered', 'buyer', i)"
+                >
+                  Delivered
+                </button>
+              </li>
+              <li>
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="updateStatus(order['_id'], 'canceled', 'buyer', i)"
+                >
+                  Cancel
+                </button>
+              </li>
+            </ul>
+            <ul class="dropdown-menu" *ngIf="order['status'] == 'on the way'">
+              <li>
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="updateStatus(order['_id'], 'delivered', 'buyer', i)"
+                >
+                  Delivered
+                </button>
+              </li>
+              <li>
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  (click)="updateStatus(order['_id'], 'canceled', 'buyer', i)"
+                >
+                  Cancel
+                </button>
+              </li>
+            </ul>
+          </div>
+        </td>
+        <td>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-primary dropdown-toggle"
+              type="button"
+              id=""
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ order["exchangeProperties"]["status"] | titlecase }}
+            </button>
+            <ul
+              class="dropdown-menu"
+              *ngIf="order['exchangeProperties']['status'] == 'waiting'"
+            >
+              <li>
+                <button
+                  class="dropdown-item"
+                  (click)="
+                    updateStatus(order['_id'], 'on the way', 'seller', i)
+                  "
+                  type="button"
+                >
+                  On the way
+                </button>
+              </li>
+              <li>
+                <button
+                  class="dropdown-item"
+                  (click)="updateStatus(order['_id'], 'delivered', 'seller', i)"
+                  type="button"
+                >
+                  Delivered
+                </button>
+              </li>
+              <li>
+                <button
+                  class="dropdown-item"
+                  (click)="updateStatus(order['_id'], 'canceled', 'seller', i)"
+                  type="button"
+                >
+                  Cancel
+                </button>
+              </li>
+            </ul>
+            <ul
+              class="dropdown-menu"
+              *ngIf="order['exchangeProperties']['status'] == 'on the way'"
+            >
+              <li>
+                <button
+                  class="dropdown-item"
+                  (click)="updateStatus(order['_id'], 'delivered', 'seller', i)"
+                  type="button"
+                >
+                  Delivered
+                </button>
+              </li>
+              <li>
+                <button
+                  class="dropdown-item"
+                  (click)="updateStatus(order['_id'], 'canceled', 'seller', i)"
+                  type="button"
+                >
+                  Cancel
+                </button>
+              </li>
+            </ul>
+          </div>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            (click)="
+              openDialog({
+                order: order,
+                ordersDetails: response.ordersDetails[i]
+              })
+            "
+          >
+            View >>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="container text-center">
+    <pagination-controls
+      id="ordersTable"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      previousLabel="Previous"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+    >
+    </pagination-controls>
+  </div>
+</div>

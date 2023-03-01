@@ -1,0 +1,55 @@
+<div class="row">
+  
+    <div class="input-group mb-3 mt-5 ml-g">
+    <input type="text" class="form-control"[(ngModel)]="term" >
+    <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-search"></i></button></div>
+  </div>
+</div>
+<table class="table table-hover text-center align-baseline">
+    <thead class="table" style="font-size: 17px">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Seller</th>
+            <th scope="col">Buyer</th>
+            <th scope="col">Date</th>
+            <th scope="col">Price (1)</th>
+            <th scope="col">Price (2)</th>
+            <th scope="col">Total Profit</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="
+    let order of data.deliveredOrders| filter: term 
+      | paginate
+        : {
+            itemsPerPage: itemsPerPage,
+            currentPage: currentPage,
+            totalItems: totalItems
+          };
+    let i = index
+  ">
+        <tr>
+        <th scope="row">{{ i + 1 }}</th>
+        
+        <td>{{
+            data["ordersDetails"][i][
+            "orderSellerDetails"
+            ]["userName"] | titlecase
+            }}
+            - {{order.addressfrom.city}}</td>
+        <td>{{
+            data["ordersDetails"][i][
+            "orderBuyerDetails"
+            ]["userName"] | titlecase
+            }}
+            - {{order.addressto.city}}</td>
+        <td>{{ order["time"] | date: "mediumDate" }}</td>
+        <!-- <td>{{ order["productPrice"] }} EGP</td> -->
+        <td>{{data["deliveredOrders"][i]["exchangeProperties"]["productPrice"] }} EGP</td>
+        <td>{{ data["deliveredOrders"][i]["productPrice"] }} EGP</td>
+        <td>{{ order["profit"] + data["deliveredOrders"][i]["exchangeProperties"]["profit"]}} EGP</td>
+        <!-- <td></td> -->
+    </tr>
+    </tbody>
+</table>
+<pagination-controls class="text-center" (pageChange)="pageChanged($event)"></pagination-controls>
+<!-- (pageChange)="pageChanged($event)" -->

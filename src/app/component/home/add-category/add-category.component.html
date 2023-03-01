@@ -1,0 +1,120 @@
+<!-- add category -->
+<div class="" style="width:40rem; overflow: auto; height: 70vh;" >
+  <ng-scrollbar >
+  <div class="pe-3 py-2">
+    <div class="border-bottom border-primary d-flex  justify-content-between">
+      <h5 class="text-primary"> Add Category</h5>
+      <button class="btn btn-outline-primary border-0 mb-2" (click)="onCloseClick()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="container w-100 mt-4 py-2 px-3 rounded-3">
+      <form class="row g-3" [formGroup]="addCategoryForm" method="post" (ngSubmit)="AddCategory()">
+        <div class="container">
+          <div class="mb-3">
+            <label for="title" class="form-label">Category Name</label>
+            <input type="text" class="form-control" id="title" formControlName="title" placeholder="ex: Mobile,Tablet,...etc"/>
+            <div *ngIf="
+                addCategoryForm.get('title')?.touched &&
+                addCategoryForm.get('title')?.invalid
+              ">
+              <span class="text-danger" *ngIf="addCategoryForm.get('title')?.errors?.['required']">This field is
+                required</span>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label for="brands" class="form-label">Brands</label>
+            <input type="text" class="form-control" id="brands" formControlName="brands"
+              placeholder="ex: apple,samsung,huawei,...etc" />
+            <small id="helpId" class="text-muted">seperate between each brand by comma ','</small>
+            <div *ngIf="
+                addCategoryForm.get('brands')?.touched &&
+                addCategoryForm.get('brands')?.invalid
+              ">
+              <span class="text-danger" *ngIf="addCategoryForm.get('brands')?.errors?.['required']">This field is
+                required</span>
+            </div>
+          </div>
+          <h5 class="mb-2 fs-5">Add up to 3 filters</h5>
+          <!-- First Filter -->
+          <div class="mb-3">
+            <label for="firstFilter" class="form-label">First filter title</label>
+            <input type="text" class="form-control" id="firstFilter" placeholder="ex: Ram Size"
+              formControlName='firstFilter.title' />
+            <div *ngIf="
+                addCategoryForm.get('firstFilter.title')?.touched &&
+                addCategoryForm.get('firstFilter.title')?.invalid
+              ">
+              <span class="text-danger" *ngIf="addCategoryForm.get('firstFilter.title')?.errors?.['required']">This field is
+                required</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="firstFilterOptions" class="form-label">First filter options</label>
+            <input type="text" class="form-control" id="firstFilterOptions" formControlName="firstFilter.options"
+              placeholder="ex: 2 g,4 g,6 g,...etc" />
+            <small id="helpId" class="text-muted">seperate between each option by comma ','</small>
+            <div *ngIf="
+                addCategoryForm.get('firstFilter.options')?.touched &&
+                addCategoryForm.get('firstFilter.options')?.invalid
+              ">
+              <span class="text-danger" *ngIf="addCategoryForm.get('firstFilter.options')?.errors?.['required']">This field
+                is required</span>
+            </div>
+          </div>
+          <!-- Second Filter -->
+          <div class="mb-3">
+            <label for="secondFilter" class="form-label">Second filter title</label>
+            <input type="text" class="form-control" id="secondFilter" formControlName="secondFilter.title" placeholder="ex: Ram Size" />
+
+            <div *ngIf="
+                addCategoryForm.get('secondFilter.title')?.touched &&
+                addCategoryForm.get('secondFilter.title')?.invalid
+              ">
+              <span class="text-danger" *ngIf="addCategoryForm.get('secondFilter.title')?.errors?.['required']">This field
+                is required</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="secondFilterOptions" class="form-label">Second filter options</label>
+            <input type="text" class="form-control" id="secondFilterOptions" formControlName="secondFilter.options"
+              placeholder="ex: 2 g,4 g,6 g,...etc" />
+              <small id="helpId" class="text-muted">seperate between each option by comma ','</small>
+            <div *ngIf="
+                addCategoryForm.get('secondFilter.options')?.touched &&
+                addCategoryForm.get('secondFilter.options')?.invalid
+              ">
+              <span class="text-danger" *ngIf="addCategoryForm.get('secondFilter.options')?.errors?.['required']">This field
+                is required</span>
+            </div>
+          </div>
+          <!-- Third Filter -->
+          <div class="mb-3">
+            <label for="thirdFilter" class="form-label">Third filter title</label>
+            <input type="text" class="form-control" id="thirdFilter" formControlName="thirdFilter.title" placeholder="ex: Ram Size" />
+            <div *ngIf="
+                addCategoryForm.get('thirdFilter.title')?.touched &&
+                addCategoryForm.get('thirdFilter.title')?.invalid
+              ">
+              <span class="text-danger" *ngIf="addCategoryForm.get('thirdFilter.title')?.errors?.['required']">This field is
+                required</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="thirdFilterOptions" class="form-label">Third filter options</label>
+            <input type="text" class="form-control" id="thirdFilterOptions" formControlName="thirdFilter.options"
+              placeholder="ex: 2 g,4 g,6 g,...etc" />
+              <small id="helpId" class="text-muted">seperate between each option by comma ','</small>
+            <div *ngIf="
+                addCategoryForm.get('thirdFilter.options')?.touched && addCategoryForm.get('thirdFilter.options')?.invalid">
+              <span class="text-danger" *ngIf="addCategoryForm.get('thirdFilter.options')?.errors?.['required']">This field
+                is required</span>
+            </div>
+          </div>
+        </div>
+        <div class="container d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary text-white" [disabled]="addCategoryForm.invalid">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-scrollbar>
+</div>

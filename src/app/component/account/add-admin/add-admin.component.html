@@ -1,0 +1,37 @@
+<div  style="width: 400px;">
+    <div class="border-bottom border-primary d-flex  justify-content-between">
+        <h5 class="text-primary"> Add Admin</h5>
+        <button class="btn btn-outline-primary border-0 mb-2" (click)="close()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form class="" [formGroup]="addadminform" (ngSubmit)="addadmin()"> 
+        <div class="mt-3 container">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" formControlName="email" placeholder="" />
+                <div  *ngIf="addadminform.get('email')?.touched && addadminform.get('email')?.invalid">
+                <span class="text-danger" *ngIf="addadminform.get('email')?.errors?.['required']">must enter your email.</span>
+                <span class="text-danger" *ngIf="addadminform.get('email')?.errors?.['email']">must enter invalid email.</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" formControlName="password" placeholder="" />
+                <div  *ngIf="addadminform.get('password')?.touched && addadminform.get('password')?.invalid">
+                <span class="text-danger" *ngIf="addadminform.get('password')?.errors?.['required']">must enter your password.</span>
+                <span class="text-danger" *ngIf="addadminform.get('password')?.errors?.['minlength']">must enter al least 6 character.</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="confirmpass" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" formControlName="confirmpass" placeholder="" />
+                <span class="text-danger" *ngIf="addadminform.hasError('mismatch')">Password & Confirm Password does not match.</span> 
+                <div *ngIf="addadminform.get('confirmpass')?.touched && addadminform.get('confirmpass')?.invalid" >
+                <span class="text-danger" *ngIf="addadminform.get('confirmpass')?.errors?.['required']">must enter your Confirm Password.</span> 
+                </div>
+            </div>
+            <div class="col-12 d-flex justify-content-end mt-3">
+              <button type="submit" class="btn btn-primary" [disabled]="addadminform.invalid">Add</button>
+            </div>
+        </div>
+      </form>
+</div>

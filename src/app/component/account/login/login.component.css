@@ -1,0 +1,20 @@
+nav{
+    background-image: url(../../../../assets/images/nav.png);
+    background-size: cover;
+  }
+  /* @media  (max-width: 1024px)  {
+    nav{
+        background-image: url(../../../../assets/images/Untitled-1.svg);
+    }
+  } */
+  
+  .last{
+    right: 10px;
+    top: 0;
+  }
+  .background{
+    background-color: white;
+  }
+  .example-container .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }

@@ -1,0 +1,78 @@
+<!-- add user -->
+<div style="width:25rem;height:33rem ;">
+  <div class="border-bottom border-primary d-flex  justify-content-between">
+    <h5 class="text-primary"> Add User</h5>
+    <button class="btn btn-outline-primary border-0 mb-2" (click)="onCloseClick()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  
+  <div class="container w-100 mt-2 py-2 px-3 rounded-3">
+    <form class="row g-3" [formGroup]="addUserForm" method="post" (ngSubmit)="AddUser()">
+      <div class="col-12">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-control" formControlName="userName" />
+        <div *ngIf="
+            addUserForm.get('userName')?.touched &&
+            addUserForm.get('userName')?.invalid
+          ">
+          <span class="text-danger" *ngIf="addUserForm.get('userName')?.errors?.['required']">userName is required</span>
+          <span class="text-danger" *ngIf="addUserForm.get('userName')?.errors?.['minlength']">Must be at least 3
+            chars</span>
+        </div>
+      </div>
+      <div class="col-12">
+        <label class="form-label">Phone number</label>
+        <input type="text" class="form-control" formControlName="phoneNumber" />
+        <div *ngIf="
+            addUserForm.get('phoneNumber')?.touched &&
+            addUserForm.get('phoneNumber')?.invalid
+          ">
+          <span class="text-danger" *ngIf="addUserForm.get('phoneNumber')?.errors?.['required']">Phone number is
+            required</span>
+          <span class="text-danger" *ngIf="addUserForm.get('phoneNumber')?.errors?.['pattern']
+            ">Invalid format, start with (01) and must be 11 numbers</span>
+        </div>
+      </div>
+      <div class="col-12">
+        <label class="form-label">Email</label>
+        <input type="text" class="form-control" formControlName="email" />
+        <div *ngIf="
+            addUserForm.get('email')?.touched && addUserForm.get('email')?.invalid
+          ">
+          <span class="text-danger" *ngIf="addUserForm.get('email')?.errors?.['required']">Email is required</span>
+          <span class="text-danger" *ngIf="addUserForm.get('email')?.errors?.['pattern']">Invalid format</span>
+        </div>
+      </div>
+      <div class="col-12">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" formControlName="password" />
+        <div *ngIf="
+            addUserForm.get('password')?.touched &&
+            addUserForm.get('password')?.invalid
+          ">
+          <span class="text-danger" *ngIf="addUserForm.get('password')?.errors?.['required']">Password is required</span>
+          <span class="text-danger" *ngIf="addUserForm.get('password')?.errors?.['minlength']">Minimun length must be 8
+            characters</span>
+        </div>
+      </div>
+      <div class="col-12">
+        <label class="form-label">Confirm password</label>
+        <input type="password" class="form-control" formControlName="confirmPassword" />
+        <div *ngIf="
+            addUserForm.get('confirmPassword')?.touched &&
+            addUserForm.get('confirmPassword')?.invalid &&
+            addUserForm.get('confirmPassword')?.errors?.['required']
+          ">
+          <span class="text-danger">Confirm user password</span>
+        </div>
+        <span *ngIf="!(addUserForm.get('confirmPassword')?.errors?.['required']) && passwordMatchError"
+          class="text-danger">Password doesn't match</span>
+        <!-- <div *ngIf="passwordMatchError">
+          <span class="text-danger">Password isn't match</span>
+        </div> -->
+      </div>
+      <div class="col-12 d-flex justify-content-end mt-3">
+        <button type="submit" class="btn btn-primary" [disabled]="addUserForm.invalid">Save changes</button>
+      </div>
+    </form>
+  </div>
+</div>

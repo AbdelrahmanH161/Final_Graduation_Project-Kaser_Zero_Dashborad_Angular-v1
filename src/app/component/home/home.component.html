@@ -1,0 +1,157 @@
+<div class="d-flex flex-md-row flex-sm-column justify-content-between mb-5 mx-lg-2 mx-md-0">
+  <!-- Card -->
+    <div
+    class="d-flex justify-content-between align-items-center items-center p-lg-4 p-md-2 rounded-lg shadow-xs border rounded-3"
+    style="background-color: rgb(245, 241, 241)">
+    <div class="p-3 bg-primary bg-opacity-25 rounded-5" style="height: 52px; width: 50px">
+      <i class="fa-solid fa-users text-primary fs-6"></i>
+    </div>
+    <div>
+      <p class="mx-4 fs-md-6">Total users</p>
+      <p class="mx-4 fs-5 fs-md-6 fw-bold">{{dashInfo['numOfUsers']}}</p>
+    </div>
+    <input class="btn btn-outline-primary" type="button" value="+" (click)="openAddUserModal()" />
+  </div>
+  <!-- Card -->
+  <div
+    class="d-flex justify-content-between align-items-center items-center p-lg-4 p-md-2 rounded-lg shadow-xs border rounded-3"
+    style="background-color: rgb(245, 241, 241)">
+    <div class="p-3 bg-primary bg-opacity-25 rounded-5" style="height: 52px; width: 50px">
+      <i class="fa-solid fa-folder-open text-primary fs-6"></i>
+    </div>
+    <div>
+      <p class="mx-4 fs-md-6">Categories</p>
+      <p class="mx-4 fs-5 fs-md-6 fw-bold">{{dashInfo['numOfCategories']}}</p>
+    </div>
+    <input name="add_user_btn" id="" class="btn btn-outline-primary" type="button" value="+"
+      (click)="openAddCategoryModal()" />
+  </div>
+  <!-- Card -->
+  <div
+    class="d-flex justify-content-between align-items-center items-center p-lg-4 p-md-2 rounded-lg shadow-xs border rounded-3"
+    style="background-color: rgb(245, 241, 241)">
+    <div class="p-3 bg-primary bg-opacity-25 rounded-5" style="height: 52px; width: 50px">
+      <i class="fa-solid fa-cart-shopping text-primary fs-6"></i>
+    </div>
+    <div>
+      <p class="mx-4 fs-md-6">Total Products</p>
+      <p class="mx-4 fs-md-6 fs-5 fw-bold">{{dashInfo['numOfProducts']}}</p>
+    </div>
+    <a name="view_delivered_orders_btn" id="" class="btn btn-outline-primary" role="button"
+    (click)="openAddProudect()">+</a>
+  </div>
+  <!-- Card -->
+  <div
+    class="d-flex justify-content-between align-items-center items-center p-lg-4 p-md-2 rounded-lg shadow-xs border rounded-3"
+    style="background-color: rgb(245, 241, 241)">
+    <div class="p-3 bg-primary bg-opacity-25 rounded-5" style="height: 52px; width: 50px">
+      <i class="fa-solid fa-stopwatch text-primary fs-5"></i>
+    </div>
+    <div>
+      <p class="mx-4 fs-md-6">Pending ads</p>
+      <p class="mx-4 fs-5 fs-md-6 fw-bold">{{dashInfo['numOfPendingAds']}}</p>
+    </div>
+    <a name="view_pending_ads_btn" id="" class="btn btn-outline-primary" role="button" routerLink="/dashbord/pendingAds">></a>
+  </div>
+</div>
+<p class="mb-5 fs-3 text-primary border rounded-5 shadow-sm py-2 fw-bold text-center">
+  Latest updates
+</p>
+<div class="container mb-4 rounded-5" style="width: 97%; background-color: rgb(245, 241, 241)">
+  <div class="row justify-content-lg-evenly">
+    <div class="col-4 bg-white shadow-sm py-3 border">
+      <table class="table table-striped caption-top table-hover text-center align-baseline rounded-3">
+        <caption class="fs-4 border-bottom mb-2 text-dark text-center">
+          New Users
+          <i class="fa-solid fa-arrow-turn-down fs-6 ms-2"></i>
+        </caption>
+        <thead class="table" style="font-size: 17px">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Joining date</th>
+            <th scope="col">Profile</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let user of dashInfo['newUsers']; index as i;">
+          <tr>
+            <th scope="row">{{i+1}}</th>
+            <td>{{user.userName | titlecase}} </td>
+            <td>{{user.time |date: 'mediumDate'}}</td>
+            <td>
+              <button type="button" class="btn btn-outline-primary">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-7 bg-white shadow-sm py-3 border">
+      <table class="table table-striped caption-top table-hover text-center align-baseline rounded-3">
+        <caption class="fs-4 border-bottom mb-2 text-dark text-center">
+          New Pending Products
+          <i class="fa-solid fa-arrow-turn-down fs-6 ms-2"></i>
+        </caption>
+        <thead class="table" style="font-size: 17px">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Details</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let product of dashInfo['pendingAds']; index as i;">
+          <tr>
+            <th scope="row">{{i+1}}</th>
+            <td>{{product['title']}}</td>
+            <td>{{product['price']}} EGP</td>
+            <td>
+              <button type="button" class="btn btn-outline-primary" (click)="viewdetails(product)">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="container px-5 text-center" style="width: 95%; background-color: rgb(245, 241, 241)">
+  <div class="row">
+    <div class="col-12 bg-white shadow-sm py-3 border">
+      <table class="table table-striped caption-top table-hover text-center align-baseline">
+        <caption class="fs-4 mb-2 border-bottom text-dark text-center">
+          New Orders
+          <i class="fa-solid fa-arrow-turn-down fs-6 ms-2"></i>
+        </caption>
+
+        <thead class="table" style="font-size: 17px">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Order type</th>
+            <th scope="col">Seller</th>
+            <th scope="col">Buyer</th>
+            <!-- <th scope="col">Details</th> -->
+          </tr>
+        </thead>
+        <tbody *ngFor="let order of dashInfo['newOrders']; index as i;">
+          <tr>
+            <th scope="row">{{i+1}}</th>
+            <td *ngIf="!order['exchangable']">Buying</td>
+            <td *ngIf="order['exchangable']">Exchanging</td>
+            <td>{{dashInfo['ordersDetails'][i]['orderBuyerDetails']['userName'] | titlecase}} -
+              {{order['addressfrom']['city']}}</td>
+            <td>{{dashInfo['ordersDetails'][i]['orderSellerDetails']['userName'] | titlecase}} -
+              {{order['addressto']['city']}}</td>
+            <!-- <td>
+              <button type="button" class="btn btn-outline-primary">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

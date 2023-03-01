@@ -1,0 +1,53 @@
+<table class="table table-hover text-center align-baseline">
+  <thead class="table" style="font-size: 17px">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Order type</th>
+      <th scope="col">Seller</th>
+      <th scope="col">Buyer</th>
+      <th scope="col">Date</th>
+      <th scope="col">Price</th>
+      <th scope="col">Profit</th>
+    </tr>
+  </thead>
+  <tbody
+    *ngFor="
+      let order of data.deliveredOrders
+        | paginate
+          : {
+              itemsPerPage: itemsPerPage,
+              currentPage: currentPage,
+              totalItems: totalItems
+            };
+      let i = index
+    "
+  >
+    <tr>
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <span *ngIf="order.exchangable">Exchanging</span>
+        <span *ngIf="!order.exchangable">Buying</span>
+      </td>
+      <td>
+        {{
+          data["ordersDetails"][i]["orderSellerDetails"]["userName"] | titlecase
+        }}
+        - {{ order.addressfrom.city }}
+      </td>
+      <td>
+        {{
+          data["ordersDetails"][i]["orderBuyerDetails"]["userName"] | titlecase
+        }}
+        - {{ order.addressto.city }}
+      </td>
+      <td>{{ order["time"] | date: "mediumDate" }}</td>
+      <td></td>
+      <td>{{ order["profit"] }} EGP</td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls
+  class="text-center"
+  (pageChange)="pageChanged($event)"
+></pagination-controls>
+<!-- (pageChange)="pageChanged($event)" -->

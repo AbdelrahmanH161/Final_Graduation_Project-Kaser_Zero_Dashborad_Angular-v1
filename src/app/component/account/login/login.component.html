@@ -1,0 +1,38 @@
+<nav class="sticky-top">
+    <div class="navbar">
+        <div class="container pt-0 mx-3 mb-2 w-100">
+            <a href="" className="navbar-brand p-0 ps-3"
+        ><img
+          src="../../../assets/images/Untitled-3.png"
+          alt=""
+          srcSet
+          width="200px"
+      /></a>
+        </div>
+    </div>
+</nav>
+<form [formGroup]="adminform" (ngSubmit)="loginAdmin()"  class="container my-5 w-50 border border-2 border-primary rounded-2 py-4 px-5">
+    <h3 class="text-center">Admin Login</h3>
+    <div class="mb-3 ">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" placeholder="Enter you email" formControlName="email" />
+        <div  *ngIf="adminform.get('email')?.touched && adminform.get('email')?.invalid">
+            <span class="text-danger" *ngIf="adminform.get('email')?.errors?.['required']">must enter your email</span>
+            <span class="text-danger" *ngIf="adminform.get('email')?.errors?.['email']">must enter invalid email</span>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" placeholder="Enter you password" formControlName="password" />
+        <div  *ngIf="adminform.get('password')?.touched && adminform.get('password')?.invalid">
+            <span class="text-danger" *ngIf="adminform.get('password')?.errors?.['required']">must enter your password</span>
+            <span class="text-danger" *ngIf="adminform.get('password')?.errors?.['minlength']">must enter al least 6 character</span>
+        </div>
+    </div>
+    <div class="container text-center">
+        <button type="submit" class="btn btn-primary text-white w-50 text-center mt-5" [disabled]="adminform.invalid">
+            Login
+        </button>
+        
+    </div>
+</form>

@@ -1,0 +1,23 @@
+:root{
+    --first-color: #692525fa;
+    --second-color: #af995b;
+  }
+  nav{
+    background-image: url(../../../assets/images/nav.png);
+    background-size: cover;
+    
+  }
+  /* @media  (max-width: 1024px)  {
+    nav{
+        background-image: url(../../../assets/images/Untitled-2.svg);
+    }
+  } */
+  
+  .last{
+    right: 10px;
+    top: 0;
+  }
+  .background{
+    background-color: white;
+  }
+  

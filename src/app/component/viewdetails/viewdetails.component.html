@@ -1,0 +1,99 @@
+<div style="width: 1000px;">
+    <div class="border-bottom border-primary d-flex  justify-content-between">
+        <h5 class="text-primary"> # {{data1.porduct._id}}</h5>
+        <button class="btn btn-outline-primary border-0 mb-2" (click)="close()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="p-2">
+        <div class="container px-2 py-3 mx-auto grid">
+            <div class="container d-flex bg-white rounded-3 w-100 mx-0 py-2 px-1 mb-3">
+                <div class="col-5 border p-2 my-2 me-2 bg-black">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                        <div *ngFor="let image of data1.porduct.img" class="carousel-item active">
+                            <img [src]="'http://localhost:4000/'+ image" class="d-block"  alt="..." style="height:300px; margin: auto;">
+                        </div>
+                        
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-7 d-flex flex-column justify-content-evenly">
+                    <div
+                        class="container-fluid d-flex justify-content-between fs-5 fw-bold pb-2 border-bottom">
+                        <p class="text-primary">{{data1.porduct.title}}</p>
+                        <p class="text-primary">{{data1.porduct.price | currency }}</p>
+                    </div>
+
+                    <!-- details -->
+                    <div class="container mt-3">
+                        <div class="row mb-3 bg-light">
+                            <div class="col border-start border-5 border-primary">
+                                Duration of use:
+                            </div>
+                            <div class="col">{{data1.porduct.durationOfUse}}</div>
+                        </div>
+                        <div class="row mb-3 bg-light">
+                            <div class="col-3 border-start border-5 border-primary">
+                                Brand:
+                            </div>
+                            <div class="col-3">{{data1.porduct.brand}}</div>
+                            <div class="col-3 border-start border-5 border-primary">
+                                Color:
+                            </div>
+                            <div class="col-3">{{data1.porduct.color}}</div>
+                        </div>
+                        <div class="row mb-3 bg-light">
+                            <div class="col-3 border-start border-5 border-primary">
+                                {{cat.firstFilter.title}}
+                            </div>
+                            <div class="col-3">{{data1.porduct.firstFilter}}</div>
+                            <div class="col-3 border-start border-5 border-primary">
+                                {{cat.secondFilter.title}}
+                            </div>
+                            <div class="col-3">{{data1.porduct.secondFilter}}</div>
+                        </div>
+                        <div class="row mb-3 bg-light">
+                            <div class="col-3 border-start border-5 border-primary">
+                                {{cat.thirdFilter.title}}
+                            </div>
+                            <div class="col-3">{{data1.porduct.thirdFilter}}</div>
+                            <div class="col-3 border-start border-5 border-primary">
+                                Location:
+                            </div>
+                            <div class="col-3">Cairo</div>
+                        </div>
+                    </div>
+                    <!-- Description -->
+                    <h6 class="text-primary">Description</h6>
+                    <p class="container border border-2 rounded-2 p-2">{{data1.porduct.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="container d-flex justify-content-between align-items-baseline">
+            <a class="btn fw-bold" href="#user" role="button">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Seller | {{data1.user.userName}}
+            </a>
+            <div class="d-flex align-items-baseline" *ngIf=" data1.porduct.able_to_exchange =='true' ">
+                <i class="fa-solid fa-circle-check"></i>
+                <p class="fw-bold ms-1">Able to exchange</p>
+            </div>
+            <div class="d-flex align-items-baseline">
+                <i class="fa-solid fa-circle-check"></i>
+                <p class="fw-bold ms-1">{{data1.porduct.status}}</p>
+            </div>
+            <div>
+                <button class="btn btn-outline-primary me-2" (click)="acceptAdd(data1.porduct._id)" >Accept</button>
+                <button  class="btn btn-outline-primary me-2" (click)="deleteAdd(data1.porduct._id)">Reject</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-4 mb-4" *ngFor="let cat of catres">
+    <div class="card rounded-5 border-primary d-grid gap-2">
+      <button
+        class="btn fs-3 text-secondary border border-primary rounded-5"
+        [routerLink]="['/dashbord/Products', cat._id]"
+        role="button"
+      >
+        {{ cat.title }}
+      </button>
+    </div>
+  </div>
+</div>
